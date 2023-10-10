@@ -1,13 +1,13 @@
-#-----------------------
-#CIS 163
-#Final Project - Chess - piece_model.py
-#By: Elijah Morgan, Austin Jackson, Stephen Robinson
-#3/27/2023
-#-----------------------
+#-----------------------\n
+#CIS 163\n
+#Final Project - Chess - piece_model.py\n
+#By: Elijah Morgan, Austin Jackson, Stephen Robinson\n
+#3/27/2023\n
+#-----------------------\n
 #
 #
-#Packages needed:
-#pygame
-#pygame-gui
+#Packages needed:\n
+#pygame\n
+#pygame-gui\n
 
 
