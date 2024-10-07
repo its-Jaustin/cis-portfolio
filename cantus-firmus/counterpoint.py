@@ -354,8 +354,8 @@ def printStaff(l1, l2, l3, l4, l5, l6, l7, l8, l9):
 
 cantusFirmus(cF)
 highpointIndex(cF)
-print('B Major: \t\t\t\t[ 1, 2,  3,  4, 5,  6,  7,  8]')
-print('B Major: \t\t\t\t[ B, C#, D#, E, F#, G#, A#, B]')
+print(key, scale, '\t\t\t\t[ 1, 2,  3,  4, 5,  6,  7,  8]')
+print(key, scale, '\t\t\t\t[ B, C#, D#, E, F#, G#, A#, B]')
 
 majorToNumbered(cF)
 numsToLetters(numberedNotes)
