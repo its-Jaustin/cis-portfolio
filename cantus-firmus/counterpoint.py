@@ -8,12 +8,29 @@ cP_Bass = [-7, 0, 0, 0, 0, 0, -8, -7]
 numberedNotes = [0, 1, 2, 3, 4, 5, 6, 7]
 letterNotes = ['C', 'C', 'C', 'C', 'C', 'C', 'C', 'C']
 #                  0    1    2    3     4    5     6    7    8     9    10    11   12
-noteNamesSharp = ('B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B')
-noteNamesFlat = ('B', 'C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B')
+noteNamesSharp = ('B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#')
+noteNamesFlat = ('B', 'C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb')
+
 increase = False
-key = 'B'
-scale = 'major'
+goodInput = False
+key = None
+scale = None
 isSharp = True
+copy_flats = [x.upper() for x in noteNamesFlat]
+while goodInput == False:
+    isSharp = True
+    key = input('Input a Key: ').upper()
+    if key not in noteNamesSharp:
+        if key not in copy_flats:
+            print('Not a valid key\n')
+            continue
+        isSharp = False
+        key = noteNamesFlat[copy_flats.index(key.upper())]
+    scale = input('Input a Scale: ').lower()
+    if scale not in ['major', 'minor']:
+        print('Not a valid key\n')
+        continue
+    break
 # l1 = []
 # l2 = []
 # l3 = []
@@ -27,7 +44,7 @@ def cantusFirmus(cF):
     good = False
     while not good:
         good = generateCF(cF)
-    print('Cantus Firmus:\t', cF)
+    #print('Cantus Firmus:\t', cF)
     n = 0
     while n < len(cF):
         if(cF[n] < 1):
@@ -35,7 +52,7 @@ def cantusFirmus(cF):
         else:
             alter_cF[n] = cF[n]
         n+=1
-    print('Cantus Firmus:\t',alter_cF)
+    #print('Cantus Firmus:\t',alter_cF)
 
 def generateCF(cF):
     jump = False
@@ -67,6 +84,8 @@ def generateCF(cF):
     if(repeatingNotes(cF)):
         return False
     if(jumpTooBig(cF)):
+        return False
+    if(tooMany1s(cF)):
         return False
     return True
 def checkDim5th(cF):
@@ -121,76 +140,59 @@ def jumpTooBig(cF):
     if(math.fabs(cF[-3] - cF[-2]) > 5):
         return True
     return False
-def majorToNumbered(major):
+def tooMany1s(nums):
+    numOnes = sum([1 for x in nums if x == 1])
+    if numOnes > 3:
+        return True
+    return False
+def cfToNumbered(nums) -> list:
     relativeNum = 0
     multi = [0, 0, 0, 0, 0, 0, 0, 0]
-    n = 1
-    while n < len(numberedNotes):
-        numHalfSteps = 0
-        relativeNum = major[n]-1
-        if relativeNum < 0:
-            numHalfSteps -= 12 * (math.fabs(relativeNum) // 7)
-            scaleDegree = math.fabs(relativeNum) % 7
-            if(scaleDegree == 1):
-                numHalfSteps -= 1
-            elif(scaleDegree == 2):
-                numHalfSteps -= 3
-            elif(scaleDegree == 3):
-                numHalfSteps -= 5
-            elif(scaleDegree == 4):
-                numHalfSteps -= 7
-            elif(scaleDegree == 5):
-               numHalfSteps -= 8
-            elif(scaleDegree == 6):
-                numHalfSteps -= 10
-        else:
-            numHalfSteps += 12* (math.fabs(relativeNum) // 7)
-            scaleDegree = math.fabs(relativeNum) % 7
-            if(scaleDegree == 1):
-                numHalfSteps += 2
-            elif(scaleDegree == 2):
-                numHalfSteps += 4
-            elif(scaleDegree == 3):
-                numHalfSteps += 5
-            elif(scaleDegree == 4):
-                numHalfSteps += 7
-            elif(scaleDegree == 5):
-                numHalfSteps += 9
-            elif(scaleDegree == 6):
-                numHalfSteps += 11
-        numberedNotes[n] = 0 + int(numHalfSteps)
-        n+=1
-    #print('Numbered notes: \t\t', numberedNotes)
+    my_numbersNotes = [0, 0, 0, 0, 0, 0, 0, 0]
+    tonic_index = None
+    if isSharp:
+        tonic_index = noteNamesSharp.index(key)
+    else:
+        tonic_index = noteNamesFlat.index(key)
+    my_scale = []
+    if scale == 'major':
+                  #[1, 2, 3, 4, 5, 6,  7,  8] #cF num
+        my_scale = [0, 2, 4, 5, 7, 9, 11, 12] #major scale
+                  #[0, 1, 2, 3, 4, 5,  6,  7] #index
+    elif scale == 'minor':
+                  #[1, 2, 3, 4, 5, 6,  7,  8]
+        my_scale = [0, 2, 3, 5, 7, 8, 11, 12] #harmonic minor
+
+    for n in range(len(nums)):
+        scale_num  = nums[n]
+        if scale_num > 7: scale_num -= 7
+        elif scale_num < 1: scale_num += 7
+        my_numbersNotes[n] = (tonic_index + my_scale[scale_num-1]) % 12
+    return my_numbersNotes
 def keyShiftNumbers(nums):
     return
 
     print('Numbered notes: ', numberedNotes)
 
-def numsToLetters(nums):
-    n = 0
-    while n < len(nums):
-        if nums[n] < 0:
-            nums[n] +=12
-            n-=1
-        elif nums[n] > 12:
-            nums[n] -=12
-            n-=1
-        n+=1
-    n=0
-    while n < len(nums):
+def cFToLetters(nums) -> list:
+    #takes cantus firmus converts to letters
+    my_nums = cfToNumbered(nums)
+    my_letter_Notes = []
+    for n in range(len(nums)):
         if isSharp:
-            letterNotes[n] = noteNamesSharp[nums[n]]
+            my_letter_Notes.append(noteNamesSharp[my_nums[n]])
         else:
-            letterNotes[n] = noteNamesSharp[nums[n]]
-        n+=1
+            my_letter_Notes.append(noteNamesFlat[my_nums[n]])
+    return my_letter_Notes
 
-    print(f'Letter Notes ({key} {scale}):\t', letterNotes)
+
 
 
 
 
 
 def printStaffC_clef(numberedNotes):
+    return
     l1 = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
     l2 = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
     l3 = ['|', '|', '\\', '_', '_', '_', '_', '_']
@@ -221,6 +223,9 @@ def printStaffC_clef(numberedNotes):
                 l1.append[letterNotes[n]]
                 l1.append('_')
                 l1.append('_')
+        break
+
+
 
 
 
@@ -230,6 +235,7 @@ def printStaffC_clef(numberedNotes):
 
     printStaff(l1, l2, l3, l4, l5, l6, l7, l8, l9)
 def printStaffTrebble(numberedNotes):
+    return
     l1 = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
     l2 = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
     l3 = ['_', '_', '_', '|', '\\', '_', '_', '_']
@@ -254,6 +260,7 @@ def printStaffTrebble(numberedNotes):
         n+=1
     printStaff(l1, l2, l3, l4, l5, l6, l7, l8, l9)
 def printStaffBass(numberedNotes):
+    return
     l1 = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
     l2 = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
     l3 = [' ', '_', '_',  ' ', ' ', '_', '_', '_']
@@ -279,6 +286,8 @@ def printStaffBass(numberedNotes):
 
     printStaff(l1, l2, l3, l4, l5, l6, l7, l8, l9)
 def printStaff(l1, l2, l3, l4, l5, l6, l7, l8, l9):
+
+    return
     n=0
     while n < len(cF)*7:
         print(l1[n], end='')
@@ -354,12 +363,14 @@ def printStaff(l1, l2, l3, l4, l5, l6, l7, l8, l9):
 
 cantusFirmus(cF)
 highpointIndex(cF)
-print(key, scale, '\t\t\t\t[ 1, 2,  3,  4, 5,  6,  7,  8]')
-print(key, scale, '\t\t\t\t[ B, C#, D#, E, F#, G#, A#, B]')
+print(key, scale, [1,2,3,4,5,6,7,8])
+print(key, scale, cFToLetters([1,2,3,4,5,6,7,8]))
+print('\n---- Generated Cantus Firmus ----')
+print(f'Scale Degree -->\t', cF)
+print(f'Notes -->\t', cFToLetters(cF))
 
-majorToNumbered(cF)
-numsToLetters(numberedNotes)
+cFToLetters(cF)
 # printStaffTrebble(cF)
-printStaffC_clef(numberedNotes)
+#printStaffC_clef(numberedNotes)
 # printStaffBass(cF)
 
