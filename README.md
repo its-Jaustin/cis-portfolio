@@ -24,4 +24,4 @@ The purpose of this repository is to provide potential employers, collaborators,
 This repository doesn't come with any specific dependencies to run the files. You can simply review the code directly, or clone the repository if you'd like to explore it further.
 
 ```bash
-git clone https://github.com/your-username/cis-portfolio.git
+git clone https://github.com/its-Jaustin/cis-portfolio.git
