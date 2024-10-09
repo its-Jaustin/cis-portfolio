@@ -4,11 +4,11 @@ Welcome to my CIS Portfolio! This repository showcases a selection of code sampl
 
 ## Contents
 
-This repository contains several files across different topics, including but not limited to:
+This repository contains several files across different topics, including:
 
 - **[Cantus Firmus]**: [A project that generates a string of 8 notes help you write melodies.]
 - **[Chess Game]**: [A simple game chess that can be played in local multiplayer]
-- **[File 3]**: [Brief description of what this file demonstrates]
+- **[ExposeBot]**: [My first attempt at making a discord bot.]
 
 ## Purpose
 
