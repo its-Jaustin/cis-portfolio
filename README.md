@@ -1,2 +1,27 @@
-# cis-portfolio
-#A breif look at some of my coding projects
+# CIS Portfolio
+
+Welcome to my CIS Portfolio! This repository showcases a selection of code samples I have written as part of my coursework and personal projects. While this isn't a collection of full projects, it offers a glimpse into my programming style, problem-solving skills, and knowledge of various programming concepts.
+
+## Contents
+
+This repository contains several files across different topics, including but not limited to:
+
+- **[File 1]**: [Brief description of what this file demonstrates]
+- **[File 2]**: [Brief description of what this file demonstrates]
+- **[File 3]**: [Brief description of what this file demonstrates]
+
+## Purpose
+
+The purpose of this repository is to provide potential employers, collaborators, or instructors a sample of the code I've written. These files cover various aspects of my coding abilities, including:
+
+- Algorithm design
+- Data structures
+- Problem-solving
+- Clean and readable code
+
+## How to Use
+
+This repository doesn't come with any specific dependencies to run the files. You can simply review the code directly, or clone the repository if you'd like to explore it further.
+
+```bash
+git clone https://github.com/your-username/cis-portfolio.git
