@@ -36,7 +36,7 @@ To compile and run this project, you'll need:
 
 ## Usage
 
-Once compiled, you can run the program with:
+Once compiled, you can view the output with:
 
 ```bash
-./game_of_life
+./conway.out
