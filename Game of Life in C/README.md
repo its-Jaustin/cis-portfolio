@@ -14,22 +14,14 @@ This project is an implementation of Conway's Game of Life, written in C. It was
 
 To compile and run this project, you'll need:
 
-- A C compiler (e.g., `gcc`).
+- 'gcc' (C compiler).
 - `make` (for utilizing the provided Makefile).
 
 ### Steps
 
-1. Clone the repository:
-    ```bash
-    git clone https://github.com/yourusername/Project-4-c-game-of-life.git
-    ```
+1. Save all of the files in the "Game of Life in C" folder
 
-2. Navigate to the project directory:
-    ```bash
-    cd Project-4-c-game-of-life
-    ```
-
-3. Compile the project using the Makefile:
+2. Compile the project using the Makefile:
     ```bash
     make
     ```
