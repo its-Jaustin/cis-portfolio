@@ -1,4 +1,4 @@
-# Project-4-c-game-of-life
+# project-4-c-game-of-life
 
 ## Description
 
